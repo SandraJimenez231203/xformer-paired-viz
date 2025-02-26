@@ -51,7 +51,7 @@ def main():
     else:
         use_gpu = False
 
-    weights = torch.load(model_weights)
+    weights = torch.load(model_weights, map_location=torch.device(args.device.lower()))
     weights = {k.replace('module.', ''): weights[k] for k in weights.keys()}
     model.load_state_dict(weights)
 
