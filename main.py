@@ -76,9 +76,11 @@ def main():
 
     simmapA = norm(cv2.resize(simmapA, (256, 256), interpolation=cv2.INTER_CUBIC))
     simmapA = show_cam_on_image(imageA_gs, simmapA, use_rgb=True)
+    # simmapA = cv2.bitwise_not(simmapA)
 
     simmapB = norm(cv2.resize(simmapB, (256, 256), interpolation=cv2.INTER_CUBIC))
     simmapB = show_cam_on_image(imageB_gs, simmapB, use_rgb=True)
+    # simmapB = cv2.bitwise_not(simmapB)
 
     simmapA = Image.fromarray(simmapA)
     simmapB = Image.fromarray(simmapB)
@@ -88,6 +90,21 @@ def main():
 
     simmapA.save(f'{save_dir}/{imageA_name}_simmap_with_{imageB_name}.png')
     simmapB.save(f'{save_dir}/{imageB_name}_simmap_with_{imageA_name}.png')
+
+
+
+    
+    # diff_map = np.array(simmapB) - np.array(simmapA)
+    # # print(diff_map)
+    # # print(diff_map.shape)
+    # # diff_map = norm(cv2.resize(diff_map, (256, 256), interpolation=cv2.INTER_CUBIC))
+    # diff_rgb = cv2.applyColorMap(diff_map.astype(np.uint8) , cv2.COLORMAP_JET)
+    
+
+    # # # # Guardar y visualizar
+    # diff_img = Image.fromarray(diff_rgb)
+    # diff_img.save(f'{save_dir}/{imageA_name}_diffmap_with_{imageB_name}.png')
+    # # diff_img.show()
 
 
 if __name__ == '__main__':

@@ -76,6 +76,10 @@ def generate_sim_maps(A_path, B_path, model, transform, use_gpu=True):
         output_featA, prepooled_tokensA = outputsA
         output_featB, prepooled_tokensB = outputsB
 
+    diff = np.linalg.norm(prepooled_tokensA - prepooled_tokensB)
+    dim = prepooled_tokensA.shape[-1]
+    print("Diff: ", diff/np.sqrt(dim))
+
     simmapA, simmapB, score = compute_spatial_similarity(prepooled_tokensA, output_featA,
                                                          prepooled_tokensB, output_featB)
 
@@ -115,7 +119,8 @@ def show_cam_on_image(img: np.ndarray,
     if np.max(img) > 1:
         raise Exception("The input image should np.float32 in the range [0, 1]")
 
-    cam = heatmap + img
+    # cam = heatmap + img
+    cam = heatmap
     cam = cam / np.max(cam)
     return np.uint8(255 * cam)
 
